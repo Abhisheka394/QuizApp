@@ -1,4 +1,4 @@
-package com.abhishek.quizapp
+package com.abhishek.quizapp.dataModels
 
 data class Question (
     val id:Int,

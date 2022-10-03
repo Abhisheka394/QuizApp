@@ -1,16 +1,17 @@
-package com.abhishek.quizapp
+package com.abhishek.quizapp.activities
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.abhishek.quizapp.Constants
+import com.abhishek.quizapp.R
+import com.abhishek.quizapp.dataModels.Question
 import kotlinx.android.synthetic.main.activity_quiz_question.*
 
 class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
@@ -19,8 +20,8 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     private var mCurrentPosition: Int = 1
     private var mQuestionsList: ArrayList<Question>? = null
     private var mSelectedOptionposition: Int = 0
-    private var mCorrectAnswers: Int=0
-    private var mUserName :String? =null
+    private var mCorrectAnswers: Int = 0
+    private var mUserName: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,15 +49,15 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
 
         defaultOptionsView()
 
-       if(mCurrentPosition == mQuestionsList!!.size){
-           btn_submit.text="FINISH"
-       } else {
-           btn_submit.text= "SUBMIT"
-       }
+        if (mCurrentPosition == mQuestionsList!!.size) {
+            btn_submit.text = "FINISH"
+        } else {
+            btn_submit.text = "SUBMIT"
+        }
 
 
         progressBar.progress = mCurrentPosition
-        tvProgress.text = "$mCurrentPosition" + "/" + progressBar.max
+        tvProgress.text = getString(R.string.progress_string, mCurrentPosition, progressBar.max)
 
         tvQuesId.text = question!!.question
         ivImage.setImageResource(question.image)
@@ -108,10 +109,10 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
                             setQuestions()
                         }
                         else -> {
-                            val intent = Intent(this,ResultActivity::class.java)
-                            intent.putExtra(Constants.USER_NAME,mUserName)
-                            intent.putExtra(Constants.CORRECT_ANSWERS,mCorrectAnswers)
-                            intent.putExtra(Constants.TOTAL_QUESTIIONS,mQuestionsList!!.size)
+                            val intent = Intent(this, ResultActivity::class.java)
+                            intent.putExtra(Constants.USER_NAME, mUserName)
+                            intent.putExtra(Constants.CORRECT_ANSWERS, mCorrectAnswers)
+                            intent.putExtra(Constants.TOTAL_QUESTIONS, mQuestionsList!!.size)
                             startActivity(intent)
 
 
@@ -119,17 +120,17 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 } else {
                     val question = mQuestionsList?.get(mCurrentPosition - 1)
-                    if(question!!.correctAnswer != mSelectedOptionposition){
+                    if (question!!.correctAnswer != mSelectedOptionposition) {
                         answerView(mSelectedOptionposition, R.drawable.wrong_option_border_bg)
-                    } else{
+                    } else {
                         mCorrectAnswers++
                     }
-                    answerView(question.correctAnswer,R.drawable.correct_option_border_bg)
+                    answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
 
-                    if(mCurrentPosition==mQuestionsList!!.size){
-                        btn_submit.text= "FINISH"
+                    if (mCurrentPosition == mQuestionsList!!.size) {
+                        btn_submit.text = "FINISH"
                     } else {
-                        btn_submit.text="GO TO NEXT QUESTION"
+                        btn_submit.text = "GO TO NEXT QUESTION"
                     }
                     mSelectedOptionposition = 0
                 }
@@ -166,7 +167,12 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         defaultOptionsView()
         mSelectedOptionposition = selectedOptionNum
 
-        tv.setTextColor(Color.parseColor("#363A43"))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            tv.setTextColor(getColor(R.color.extraColor))
+        } else {
+            tv.setTextColor(Color.parseColor("#363A43"))
+        }
+
         tv.setTypeface(tv.typeface, Typeface.BOLD)
         tv.background = ContextCompat.getDrawable(
             this,

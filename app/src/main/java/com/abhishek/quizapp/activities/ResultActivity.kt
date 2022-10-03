@@ -1,8 +1,10 @@
-package com.abhishek.quizapp
+package com.abhishek.quizapp.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.abhishek.quizapp.Constants
+import com.abhishek.quizapp.R
 import kotlinx.android.synthetic.main.activity_result.*
 
 class ResultActivity : AppCompatActivity() {
@@ -13,14 +15,14 @@ class ResultActivity : AppCompatActivity() {
 
         val username = intent.getStringExtra(Constants.USER_NAME)
         tv_name.text = username
-        val totalQuestions = intent.getIntExtra(Constants.TOTAL_QUESTIIONS,0)
+        val totalQuestions = intent.getIntExtra(Constants.TOTAL_QUESTIONS,0)
         val correctAnswers = intent.getIntExtra(Constants.CORRECT_ANSWERS,0)
 
         tv_score.text = "Your Score is $correctAnswers out of $totalQuestions"
 
 
         btn_finish.setOnClickListener{
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
 
