@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResultActivity"
+        <activity android:name=".activities.ResultActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarTheme">
         </activity>
         <activity
-            android:name=".QuizQuestionActivity"
+            android:name=".activities.QuizQuestionActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarTheme"
             android:windowSoftInputMode="adjustResize">

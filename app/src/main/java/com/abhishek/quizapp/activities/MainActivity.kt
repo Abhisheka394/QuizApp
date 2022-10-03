@@ -1,10 +1,12 @@
-package com.abhishek.quizapp
+package com.abhishek.quizapp.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.abhishek.quizapp.Constants
+import com.abhishek.quizapp.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             if(etName.text.toString().isEmpty()){
                 Toast.makeText(this,"Please Enter Your Name",Toast.LENGTH_LONG).show()
             }else {
-                val intent=Intent(this,QuizQuestionActivity::class.java)
+                val intent=Intent(this, QuizQuestionActivity::class.java)
                 intent.putExtra(Constants.USER_NAME,etName.text.toString())
                 startActivity(intent)
                 finish()
